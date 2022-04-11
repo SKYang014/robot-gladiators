@@ -13,9 +13,14 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 10;
 var enemyAttack = 12;
 
+
+// Game States
+// "WIN" - Player robot has defeated all enemy-robots
+//    * Fight all enemy-robots
+
 var fight = function(enemyNames) {
     // repeat and execute as long as the enemy robot is alive
-    while(enemyHealth > 0) {
+    while(playerHealth > 0 && enemyHealth > 0) {
     // alert players that they are starting the round
     //window.alert("Welcome to Robot Gladiators!")
 
@@ -51,6 +56,7 @@ var fight = function(enemyNames) {
             //check player's health
             if (playerHealth <= 0) {
                 window.alert(playerName + " has died.");
+                break;
             }
 
             else {
@@ -58,7 +64,7 @@ var fight = function(enemyNames) {
             }
         } 
         //if player chooses skip
-        else if (promptFight === "skip" || promptFight === "SKIP") {
+        if (promptFight === "skip" || promptFight === "SKIP") {
             //comfirm player wants to skip
             var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
@@ -66,16 +72,10 @@ var fight = function(enemyNames) {
             if (confirmSkip) {
                 window.alert(playerName + " has decided to skip this fight. Goodbye!");
                 //subtract money
-                playerMoney = playerMoney - 2
+                playerMoney = playerMoney - 10;
+                console.log("playerMoney", playerMoney)
+                break;
             }
-            //if no (false), ask a question by running fight() again
-            else {
-                fight();
-            }
-        }
-
-        else {
-            window.alert("You need to choose a valid option.  Try again!");
         }
     }
 
@@ -89,14 +89,6 @@ for(var i = 0; i < enemyNames.length; i++) {
     fight(pickedEnemyName);
 }
 
-// Game States
-// "WIN" - Player robot has defeated all enemy-robots
-//    * Fight all enemy-robots
+// Games states
+//"LOSE" - Player robtos's health is zero or less
 
-//fight();
-
-//check to see if the value of the playerHealth variable is greater than 0
-
-// if (playerHealth > 0) {
-//     console.log("Your player is still alive!")
-// }
