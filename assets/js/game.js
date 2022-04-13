@@ -18,6 +18,12 @@ var enemyAttack = 12;
 // "WIN" - Player robot has defeated all enemy-robots
 //    * Fight all enemy-robots
 
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+};
+
 var fight = function(enemyNames) {
     // repeat and execute as long as the enemy robot is alive
     while(playerHealth > 0 && enemyHealth > 0) {
@@ -28,7 +34,9 @@ var fight = function(enemyNames) {
 
             //subtract the value of 'playerAttack' from the value of enemyHealth
             //and use that result to update the value in 'enemyHealth' variable
-            enemyHealth = enemyHealth - playerAttack;
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+
+            enemyHealth = Math.max(0, enemyHealth - damage);
 
             //log a resultng message to the console so we know that it worked
             console.log(
@@ -46,7 +54,9 @@ var fight = function(enemyNames) {
 
             //subtract the value of 'eemyAttack' from the value of 'playerHealth' 
             //and use that result to update the value in teh 'playerHealth' variable
-            playerHealth = playerHealth - enemyAttack;
+            var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+            playerHealth = Math.max(0, playerHealth - damage);
             //log a resulting message to the console so we know taht it worked
             console.log(
                 enemyNames + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " remaining."
@@ -71,7 +81,7 @@ var fight = function(enemyNames) {
             if (confirmSkip) {
                 window.alert(playerName + " has decided to skip this fight. Goodbye!");
                 //subtract money
-                playerMoney = playerMoney - 10;
+                playerMoney = Math.max(0, playerMoney - 10);
                 console.log("playerMoney", playerMoney)
                 break;
             }
@@ -163,7 +173,8 @@ var startGame = function() {
             // pick new enemy to fight based on the index of the enemyNames array
             var pickedEnemyName = enemyNames[i];
             // reset enemyHealth before starting new fight
-            enemyHealth = 50;
+            //enemyHealth = Math.floor(Math.random() * 21) + 40;
+            enemyHealth = randomNumber(40, 60);
             // use debugger to pause script from running and check what's going on at that moment in the code
             // debugger;
             // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
