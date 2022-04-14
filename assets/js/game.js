@@ -127,9 +127,19 @@ var randomNumber = function(min, max) {
     return value;
 };
 
+var getPlayerName = function () {
+    var name = "";
+
+    while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+    }
+
+    console.log("Your robot's name is " + name);
+    return name;
+};
 
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -148,27 +158,26 @@ var playerInfo = {
     },
 
     refillHealth: function() {
-    if (this.money >= 7) {
-        window.alert("Refilling player's health by 20 for 7 dollars.");
-        this.health += 20;
-        this.money -= 7;
-    } 
-    else {
-        window.alert("You don't have enough money!");
-    }
+        if (this.money >= 7) {
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+            this.health += 20;
+            this.money -= 7;
+        } 
+        else {
+            window.alert("You don't have enough money!");
+        }
     },
 
     upgradeAttack: function() {
-    if (this.money >= 7) {
-        window.alert("Upgrading player's attack by 6 for 7 dollars.");
-        this.attack += 6;
-        this.money -= 7;
-    } 
-    else {
-        window.alert("You don't have enough money!");
+        if (this.money >= 7) {
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+            this.attack += 6;
+            this.money -= 7;
+        } 
+        else {
+            window.alert("You don't have enough money!");
+        }
     }
-    }
-
 };
 
 // you can also log multiplevalues at once like this
@@ -192,7 +201,6 @@ var enemyInfo = [
 
 //function start a new game
 var startGame = function() {
-    //reset player stats
     // reset player stats
     playerInfo.reset();
 
@@ -200,6 +208,7 @@ var startGame = function() {
         if (playerInfo.health > 0) {
             // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
             window.alert("Welcome to Robot Gladiators!  Round " + ( i + 1 ) );
+            debugger;
             // pick new enemy to fight based on the index of the enemy.name array
             var pickedEnemyObj = enemyInfo[i];
             // reset enemy.health before starting new fight
